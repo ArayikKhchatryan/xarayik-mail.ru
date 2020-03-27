@@ -89,8 +89,8 @@
 
           <mat-form-field style="margin-left: 85px">
             <mat-label>Planned Start Date</mat-label>
-            <input matInput [matDatepicker]="picker" formControlName="startDate" [(ngModel)]="form1.value.startDate"
-                   (dateChange)="onDateChange($event)" required>
+            <input matInput [matDatepicker]="picker" formControlName="startDate"
+                   [(ngModel)]="form1.value.startDate" (dateChange)="onDateChange($event)" required>
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
@@ -99,8 +99,8 @@
 
           <mat-form-field style="margin-left: 85px">
             <mat-label>Planned End Date</mat-label>
-            <input matInput [matDatepicker]="picker1" formControlName="endDate" [(ngModel)]="form1.value.endDate"
-                   (dateChange)="onDateChange($event)">
+            <input matInput [matDatepicker]="picker1" formControlName="endDate"
+                   [(ngModel)]="form1.value.endDate" (dateChange)="onDateChange($event)">
             <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
             <mat-datepicker #picker1></mat-datepicker>
           </mat-form-field>

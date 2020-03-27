@@ -31,8 +31,8 @@ export class HttpProjectService extends ProjectService {
     return this.http.get<ProjectViewModel[]>(`http://localhost:8080/projects`);
   }
 
-  updateProject(id: number, project: ProjectModel): Observable<Response> {
-    return this.http.put<Response>(`http://localhost:8080/projects/update/${id}/${project}`, id);
+  updateProject(id: number, project: ProjectModel, newProjectTitle:Boolean): Observable<Response> {
+    return this.http.put<Response>(`http://localhost:8080/projects/update/${id}/${newProjectTitle}`, project);
   }
 
   getNewProject(): Observable<ProjectModel> {
