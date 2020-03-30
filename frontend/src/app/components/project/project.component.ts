@@ -99,8 +99,8 @@ export class ProjectComponent implements OnInit {
       projectTitle: new FormControl(this.project.projectTitle, Validators.required),
       description: new FormControl(this.project.description),
       implementationStatus: new FormControl(this.project.impStatusId, [Validators.required, Validators.min(1)]),
-      startDate: new FormControl(this.project.startDate, Validators.required),
-      endDate: new FormControl(this.project.endDate),
+      startDate: new FormControl(new Date(this.project.startDate), Validators.required),
+      endDate: new FormControl(new Date(this.project.endDate)),
     });
   }
 
@@ -135,24 +135,32 @@ export class ProjectComponent implements OnInit {
 
         this.project = res[4];
 
+        // console.log(res[4]);
+        // console.log(this.project.startDate);
+
         if (!this.project) {
           this.idIncorrect = true;
         } else {
           // this.project = JSON.parse(this.project)
           // alert(typeof this.project);
           // console.log(this.project)
+
+          console.log(this.project);
+
           this.addForm();
+
           // this.form1.value.startDate = this.project.startDate;
           if (!this.newProject) {
             this.sectorsArr = this.project?.sectors;
             for (let i of this.sectorsArr) {
               this.deleteSectorName(i.sector, i.percent);
             }
-            alert(this.project.startDate);
+            // alert(this.project.startDate);
             this.locationsArr = this.project?.locations;
             this.onDateChange();
             this.updateProject = res[4].updateProject;
             this.createProject = res[4].createProject;
+            // alert(res[4].updateProject + ", " + res[4].createProject);
             this.locationsPercentSumVal = this.locationsPercentSum();
           }
 
@@ -254,6 +262,7 @@ export class ProjectComponent implements OnInit {
 
   onDateChange($event?: MatDatepickerInputEvent<unknown>) {
     if (this.form1.value.startDate && this.form1.value.endDate) {
+      // alert(this.form1.value.endDate);
       let startDate = new Date(this.form1.value.startDate).getTime();
       let endDate = new Date(this.form1.value.endDate).getTime();
       let tarb = endDate - startDate;
@@ -262,7 +271,7 @@ export class ProjectComponent implements OnInit {
         this.form1.value.stratDate = null;
         this.form1.value.endDate = null;
         this.duration = null;
-      } else {
+      } else if (String(Math.floor(orTarb)) != 'NaN') {
         this._duration = Math.floor(orTarb);
       }
     } else {
@@ -325,6 +334,7 @@ export class ProjectComponent implements OnInit {
     // this.updateProject = new Date();
     const obj = this.form1.value;
     this.newProjectTitle = this.project.projectTitle != obj.projectTitle;
+    // alert(obj.startDate + ", " + obj.endDate);
     this.project = new ProjectModel(obj.projectCode, obj.projectTitle, obj.description, obj.implementationStatus,
       obj.startDate, obj.endDate, this.sectorsArr, this.locationsArr, this.updateProject);
 
