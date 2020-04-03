@@ -1,4 +1,3 @@
-import {ProjectService, Response} from '../project.service';
 // import {ProjectModel} from '../../model/project.model';
 // import {SectorModel} from '../../model/sector.model';
 import {Injectable} from '@angular/core';

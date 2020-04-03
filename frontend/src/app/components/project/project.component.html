@@ -40,7 +40,7 @@
         </button>
 
         <button mat-raised-button [disabled]="!form1.valid" class="headerButton" style="width: 120px"
-                (click)="saveProject(true)" >SAVE & CLOSE
+                (click)="saveProject(true)">SAVE & CLOSE
         </button>
 
       </div>
@@ -107,7 +107,7 @@
 
           <mat-form-field style=" margin-left: 85px">
             <mat-label>Duration</mat-label>
-            <input matInput [(ngModel)]="duration" [ngModelOptions]="{standalone: true}" (click)= "getStartAndEndDate()">
+            <input matInput [(ngModel)]="duration" [ngModelOptions]="{standalone: true}" (click)="getStartAndEndDate()">
           </mat-form-field>
 
         </div>

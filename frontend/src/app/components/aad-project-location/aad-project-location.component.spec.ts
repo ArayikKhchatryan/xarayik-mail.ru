@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { AadProjectLocationComponent } from './aad-project-location.component';
+import {AadProjectLocationComponent} from './aad-project-location.component';
 
 describe('AadProjectLocationComponent', () => {
   let component: AadProjectLocationComponent;
@@ -8,9 +8,9 @@ describe('AadProjectLocationComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AadProjectLocationComponent ]
+      declarations: [AadProjectLocationComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -88,7 +88,7 @@ export class ProjectComponent implements OnInit {
     this.getEndDate();
   }
 
-  constructor(private router: Router, private route: ActivatedRoute, private projectService: ProjectService, private cs: ClassifierServiceService, private fb: FormBuilder, public dialog: MatDialog,) {
+  constructor(private router: Router, private route: ActivatedRoute, private projectService: ProjectService, private cs: ClassifierServiceService, private fb: FormBuilder, public dialog: MatDialog) {
 
   }
 
@@ -336,14 +336,15 @@ export class ProjectComponent implements OnInit {
     this.newProjectTitle = this.project.projectTitle != obj.projectTitle;
     // alert(obj.startDate + ", " + obj.endDate);
     this.project = new ProjectModel(obj.projectCode, obj.projectTitle, obj.description, obj.implementationStatus,
-      obj.startDate, obj.endDate, this.sectorsArr, this.locationsArr, this.updateProject);
+      obj.startDate, obj.endDate, this.sectorsArr, this.locationsArr);
 
     let x: Observable<Response>;
     if (this.newProject) {
-
+      this.project.createProject = new Date();
       x = this.projectService.addProject(this.project);
     } else {
-
+      this.createProject = this.project.createProject;
+      this.project.updateProject = new Date();
       // alert(this.project.updateProject);
       x = this.projectService.updateProject(this.id, this.project, this.newProjectTitle);
     }

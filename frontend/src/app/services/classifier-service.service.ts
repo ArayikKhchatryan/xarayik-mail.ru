@@ -1,9 +1,7 @@
 import {Injectable} from '@angular/core';
 import {ClassifiersModel} from '../model/classifiers.model';
 import {ChildClassifierModel} from '../model/child-classifier.model';
-import {Observable, of} from 'rxjs';
-import {delay} from 'rxjs/operators';
-import {Response} from './project.service';
+import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 
 @Injectable({
@@ -52,8 +50,6 @@ export class ClassifierServiceService {
 //--------------------------------
 
 
-
-
   // getCountyes(): Observable<ClassifiersModel[]>{
   //   return of(this.county_classifier)
   // }
@@ -86,21 +82,21 @@ export class ClassifierServiceService {
   // }
 
 
-  getImpStatusClassifier(): Observable<ClassifiersModel[]>{
+  getImpStatusClassifier(): Observable<ClassifiersModel[]> {
     return this.http.get<ClassifiersModel[]>(`http://localhost:8080/projects/impStatuses`);
   }
 
 
-  getDistricts(): Observable<ChildClassifierModel[]>{
+  getDistricts(): Observable<ChildClassifierModel[]> {
     return this.http.get<ChildClassifierModel[]>(`http://localhost:8080/projects/districts`);
   }
 
 
-  getSectorsClassifier():  Observable<ClassifiersModel[]>{
+  getSectorsClassifier(): Observable<ClassifiersModel[]> {
     return this.http.get<ClassifiersModel[]>(`http://localhost:8080/projects/sectors`);
   }
 
-  getCountyClassifier(): Observable<ClassifiersModel[]>{
+  getCountyClassifier(): Observable<ClassifiersModel[]> {
     return this.http.get<ClassifiersModel[]>(`http://localhost:8080/projects/countyes`);
   }
 }

@@ -25,7 +25,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {DeleteProjectComponent} from './components/delete-project/delete-project.component';
 import {DontSavedComponent} from './components/dont-saved/dont-saved.component';
 import {HttpProjectService} from './services/impl/http-project.service';
-import { HttpClientModule } from '@angular/common/http';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -59,7 +59,7 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   providers: [ClassifierServiceService,
     // MatDatepickerModule,
-    [{ provide: ProjectService, useClass: HttpProjectService }]
+    [{provide: ProjectService, useClass: HttpProjectService}]
   ],
   bootstrap: [AppComponent]
 })

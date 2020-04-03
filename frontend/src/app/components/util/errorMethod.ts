@@ -1,5 +1,5 @@
 export class ErrorMethod {
-  static getError(){
+  static getError() {
     console.log('error');
   }
 }

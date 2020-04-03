@@ -8,7 +8,8 @@ import {Component, OnInit} from '@angular/core';
 })
 export class DeleteProjectComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }

@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
+import {RouterModule, Routes} from '@angular/router';
 import {ProjectComponent} from './components/project/project.component';
 import {ProjectListComponent} from './components/project-list/project-list.component';
 import {AadProjectLocationComponent} from './components/aad-project-location/aad-project-location.component';
@@ -8,7 +8,7 @@ import {AadProjectLocationComponent} from './components/aad-project-location/aad
 export const routes: Routes = [
   {path: 'projects/:id', component: ProjectComponent},
   {path: 'projects', component: ProjectListComponent},
-  {path: 'projects/add/location', component: AadProjectLocationComponent},
+  // {path: 'projects/add/location', component: AadProjectLocationComponent},
   {path: '**', redirectTo: 'projects'}
 ];
 
