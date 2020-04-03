@@ -41,12 +41,16 @@ export class AadProjectLocationComponent implements OnInit {
     this.counties = this.countiesAll;
     this.filteredDistricts();
     this.filteredCounties();
+    this.districts = null;
     // this.counties = this.countiesAll;
   }
 
   filteredDistricts() {
     this.districts = this.districtsAll ? this.districtsAll.filter(district => !this.data.locations.find(location => location.districtId === district.id &&
       location.countyId === district.parentId)) : [];
+    // if(this.selected.countyId == null){
+    //   this.districts = null;
+    // }
   }
 
   filteredCounties() {
