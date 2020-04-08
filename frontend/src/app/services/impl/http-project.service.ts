@@ -14,12 +14,14 @@ export class HttpProjectService extends ProjectService {
     super();
   }
 
+  a: string = '5';
+
   addProject(project: ProjectModel): Observable<Response> {
-    return this.http.post<Response>(`http://localhost:8080/projects/add`, project);
+    return this.http.post<Response>(`http://localhost:8080/projects`, project);
   }
 
   deleteProjectById(id: number): Observable<Response> {
-    return this.http.put<Response>(`http://localhost:8080/projects/delete/${id}`, id);
+    return this.http.delete<Response>(`http://localhost:8080/projects/${id}`);
   }
 
   getProjectById(id: number): Observable<ProjectModel> {
@@ -27,11 +29,11 @@ export class HttpProjectService extends ProjectService {
   }
 
   getProjects(): Observable<ProjectViewModel[]> {
-    return this.http.get<ProjectViewModel[]>(`http://localhost:8080/projects`);
+    return this.http.get<ProjectViewModel[]>(`http://localhost:8080/projects?a=${this.a}`);
   }
 
   updateProject(id: number, project: ProjectModel, newProjectTitle: Boolean): Observable<Response> {
-    return this.http.put<Response>(`http://localhost:8080/projects/update/${id}/${newProjectTitle}`, project);
+    return this.http.put<Response>(`http://localhost:8080/projects/${id}/${newProjectTitle}`, project);
   }
 
   getNewProject(): Observable<ProjectModel> {

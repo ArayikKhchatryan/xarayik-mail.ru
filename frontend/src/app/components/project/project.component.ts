@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ProjectModel} from '../../model/project.model';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators} from '@angular/forms';
 import {ClassifierServiceService} from '../../services/classifier-service.service';
 import {SectorModel} from '../../model/sector.model';
 import {AadProjectLocationComponent} from '../aad-project-location/aad-project-location.component';
@@ -95,7 +95,7 @@ export class ProjectComponent implements OnInit {
   addForm() {
     this.form1 = new FormGroup({
       // projectCode: new FormControl('', [Validators.required, Validators.nullValidator({})]),
-      projectCode: new FormControl(this.project.projectCode, [Validators.required]),
+      projectCode: new FormControl(this.project.projectCode, [Validators.required, validatorFunc("aaa")]),
       projectTitle: new FormControl(this.project.projectTitle, Validators.required),
       description: new FormControl(this.project.description),
       implementationStatus: new FormControl(this.project.impStatusId, [Validators.required, Validators.min(1)]),
@@ -130,37 +130,26 @@ export class ProjectComponent implements OnInit {
         this.imp_statuses = res[2];
 
         this.counties = res[3];
-        // alert(typeof this.counties);
-        // console.log(JSON.parse(JSON.stringify(this.counties)));
 
         this.project = res[4];
-
-        // console.log(res[4]);
-        // console.log(this.project.startDate);
 
         if (!this.project) {
           this.idIncorrect = true;
         } else {
-          // this.project = JSON.parse(this.project)
-          // alert(typeof this.project);
-          // console.log(this.project)
 
           console.log(this.project);
 
           this.addForm();
 
-          // this.form1.value.startDate = this.project.startDate;
           if (!this.newProject) {
             this.sectorsArr = this.project?.sectors;
             for (let i of this.sectorsArr) {
               this.deleteSectorName(i.sector, i.percent);
             }
-            // alert(this.project.startDate);
             this.locationsArr = this.project?.locations;
             this.onDateChange();
             this.updateProject = res[4].updateProject;
             this.createProject = res[4].createProject;
-            // alert(res[4].updateProject + ", " + res[4].createProject);
             this.locationsPercentSumVal = this.locationsPercentSum();
           }
 
@@ -262,7 +251,6 @@ export class ProjectComponent implements OnInit {
 
   onDateChange($event?: MatDatepickerInputEvent<unknown>) {
     if (this.form1.value.startDate && this.form1.value.endDate) {
-      // alert(this.form1.value.endDate);
       let startDate = new Date(this.form1.value.startDate).getTime();
       let endDate = new Date(this.form1.value.endDate).getTime();
       let tarb = endDate - startDate;
@@ -277,7 +265,6 @@ export class ProjectComponent implements OnInit {
     } else {
       this.duration = null;
     }
-    // alert(this.duration)
   }
 
   getEndDate() {
@@ -331,27 +318,25 @@ export class ProjectComponent implements OnInit {
   }
 
   saveProject(isClose = false) {
-    // this.updateProject = new Date();
     const obj = this.form1.value;
     this.newProjectTitle = this.project.projectTitle != obj.projectTitle;
-    // alert(obj.startDate + ", " + obj.endDate);
     this.project = new ProjectModel(obj.projectCode, obj.projectTitle, obj.description, obj.implementationStatus,
       obj.startDate, obj.endDate, this.sectorsArr, this.locationsArr);
 
-    let x: Observable<Response>;
+    let x$: Observable<Response>;
     if (this.newProject) {
       this.project.createProject = new Date();
-      x = this.projectService.addProject(this.project);
+      x$ = this.projectService.addProject(this.project);
     } else {
       this.createProject = this.project.createProject;
       this.project.updateProject = new Date();
       // alert(this.project.updateProject);
-      x = this.projectService.updateProject(this.id, this.project, this.newProjectTitle);
+      x$ = this.projectService.updateProject(this.id, this.project, this.newProjectTitle);
     }
-    x.subscribe(res => {
+    x$.subscribe(res => {
       if (res.status) {
         if (isClose) {
-          this.router.navigate(['/projects']);
+          this.router.navigate(['/projects', {id: this.id, name: this.project.projectTitle}]);
         }
         if (this.newProject) {
           this.project.createProject = this.createProject = new Date();
@@ -369,6 +354,13 @@ export class ProjectComponent implements OnInit {
       console.log(err);
     });
   }
+}
+
+export function validatorFunc(str: string): ValidatorFn {
+  return (control: AbstractControl): {[key: string]: any} | null => {
+    const forbidden = str == control.value;
+    return forbidden ? {'forbiddenName': {value: control.value}} : null;
+  };
 }
 
 
