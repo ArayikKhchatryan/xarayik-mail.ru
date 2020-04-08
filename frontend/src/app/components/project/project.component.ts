@@ -363,7 +363,6 @@ export function validatorFunc(str: string): ValidatorFn {
   };
 }
 
-
 interface Sectors {
   sectorId?: string;
   percent?: number;
